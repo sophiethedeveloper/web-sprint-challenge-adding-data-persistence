@@ -1,29 +1,62 @@
 const router = require('express').Router()
+const Project = require('./project-model')
 
-const currentTime = new Date(). toDateString()
+//adding resources
+router.post('/resource', (req, res) => {
+    Project.addResource(req.body)
+    .then((newResource) => {
+        res.status(200).json(newResource)
+    })
+    .catch(error => {
+        res.status(500).json({message: error.message})
+    })
+})
 
-// @desc			Test endpoint is working
-// @route			/test
-router.get('/test', (req, res) => { res.status(200).json({message: 'server running ' + currentTime}) })
+// finding all resources
+router.get('/resources', (req, res) => {
+    Project.findAllResources()
+    .then(resources => {
+        res.status(200).json(resources)
+    })
+    .catch(error => {
+        res.status(500).json({error: error.message})
+    })
+})
 
-// @desc			Get all s
-// @route			GET /
-router.get('/', (req, res) => {    })
 
-// @desc			Get a  by id
-// @route			GET /:id
-router.get('/:id', (req, res) => {    })
+//adding projects
+router.post('/project', (req, res) => {
+    Project.addProject(req.body)
+    .then((newProject) => {
+        res.status(200).json(newProject)
+    })
+    .catch(error => {
+        res.status(500).json({message: error.message})
+    })
+})
 
- // @desc			Add a new 
-// @route			POST /
-router.post('/', (req, res) => {    })
+// finding all projects
+router.get('/projects', (req, res) => {
+    Project.findAllProjects()
+    .then(projects => {
+        res.status(200).json(projects)
+    })
+    .catch(error => {
+        res.status(500).json({error: error.message})
+    })
+});
 
-// @desc			Update a  by id
- // @route			PUT /:id
- router.put('/:id', (req, res) => {    })
+//adding projects
 
-// @desc			Remove a  by id
-// @route			DELETE /:id
-router.delete('/:id', (req, res) => {    })
+// finding all projects
+router.get('/tasks', (req, res) => {
+    Project.findAllTasks()
+    .then(tasks => {
+        res.status(200).json(tasks)
+    })
+    .catch(error => {
+        res.status(500).json({error: error.message})
+    })
+});
 
 module.exports = router;

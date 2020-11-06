@@ -27,10 +27,22 @@ function findAllProjects(){
 
 }
 
-function addTask(){
-
+function addTask(newTask){
+    return db('tasks').insert(newTask)
 }
 
 function findAllTasks(){
-    return db('tasks')
+
+    // SELECT
+    // t.description as 'Task description',
+    // t.notes,
+    // p.project_name,
+    // p.description as 'Project Description'
+    // FROM tasks as t
+    // JOIN projects as p
+    // ON t.project_id = p.id;
+
+    return db('tasks as t')
+    .join('projects as p', 't.project_id', 'p.id')
+    .select("t.description as task description", 't.notes', 'p.project_name', "p.description as project description" )
 }

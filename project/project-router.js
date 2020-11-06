@@ -46,9 +46,18 @@ router.get('/projects', (req, res) => {
     })
 });
 
-//adding projects
+//adding tasks
+router.post('/task', (req, res) => {
+    Project.addTask(req.body)
+    .then((newTask) => {
+        res.status(200).json(newTask)
+    })
+    .catch(error => {
+        res.status(500).json({message: error.message})
+    })
+})
 
-// finding all projects
+// finding all tasks
 router.get('/tasks', (req, res) => {
     Project.findAllTasks()
     .then(tasks => {
